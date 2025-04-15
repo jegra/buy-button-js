@@ -1,5 +1,13 @@
 # BuyButton.js
 
+## NODE
+Node V14 was used to run the build:
+
+```
+nvm use 14
+yarn build
+```
+
 [BuyButton.js on NPM](https://www.npmjs.com/package/@shopify/buy-button-js)
 
 BuyButton.js is a highly customizable UI library for adding e-commerce functionality to any website. It allows you to create interactive UI components such as product listings and shopping carts with minimal configuration, while allowing you to easily customize the appearance and behaviour of the components.
