@@ -247,6 +247,8 @@ const defaults = {
     contents: {
       image: true,
       variantTitle: true,
+      // JG Edit: Add custom attribute display
+      customAttribute: true,
       title: true,
       price: false,
       priceWithDiscounts: true,
@@ -267,6 +269,8 @@ const defaults = {
       lineItem: 'shopify-buy__cart-item',
       image: 'shopify-buy__cart-item__image',
       variantTitle: 'shopify-buy__cart-item__variant-title',
+      // JG Edit: Add custom attribute display
+      customAttribute: 'shopify-buy__cart-item__custom-attribute',
       itemTitle: 'shopify-buy__cart-item__title',
       price: 'shopify-buy__cart-item__price',
       priceWithDiscounts: 'shopify-buy__cart-item__price-and-discounts',

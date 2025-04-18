@@ -117,6 +117,19 @@ export default class Cart extends Component {
       data.text = this.config.lineItem.text;
       data.lineItemImage = this.imageForLineItem(data);
       data.variantTitle = data.variant.title === 'Default Title' ? '' : data.variant.title;
+
+      // JG Edit: Add custom attribute for display - we assign 
+      // to a singular 'customAttribute' field for easier access.
+      data.customAttribute = '';
+      if (data.customAttributes.length && data.customAttributes[0].hasOwnProperty('key')) {
+        data.customAttributes.forEach((item, index) => {
+          if (index > 0) {
+            data.customAttribute += '<br>';
+          }
+          data.customAttribute += `${item.key}: ${item.value}`;
+        });
+      }
+      // End JG Edit
       return acc + this.childTemplate.render({data}, (output) => `<li id="${lineItem.id}" class=${this.classes.lineItem.lineItem}>${output}</li>`);
     }, '');
   }
@@ -419,8 +432,10 @@ export default class Cart extends Component {
    * add variant to cart.
    * @param {Object} variant - variant object.
    * @param {Number} [quantity=1] - quantity to be added.
+   * @param {Boolean} [openCart=true] - whether to open the cart.
+   * @param {String} [customAttributes=null] - JG Edit: custom attributes to be added.
    */
-  addVariantToCart(variant, quantity = 1, openCart = true) {
+  addVariantToCart(variant, quantity = 1, openCart = true, customAttributes = null) {
     if (quantity <= 0) {
       return null;
     }
@@ -428,6 +443,12 @@ export default class Cart extends Component {
       this.open();
     }
     const lineItem = {variantId: variant.id, quantity};
+
+    // JG Edit: Add support for custom attributes
+    if (customAttributes) {
+      lineItem.customAttributes = customAttributes;
+    }
+
     if (this.model) {
       return this.props.client.checkout.addLineItems(this.model.id, [lineItem]).then((checkout) => {
         this.model = checkout;
